@@ -1,7 +1,11 @@
 # About ulog
-A wrapper of `spdlog` to address issue caused by static variable among DLLs/EXEs.
+A wrapper of `spdlog` to address issue caused by static variable among DLLs/EXEs/SOs/DYLIBs...
+
+This project exports a dynamic link library that can be shared by different objects of your project.
 
 Target spdlog version is `v1.14.1`.
+
+Target C++ version is `C++17` to use `filesystem` library.
 
 # Usage
 
