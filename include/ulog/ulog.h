@@ -13,7 +13,7 @@ DllExport bool setFileLogger(const std::string &filename = "log.txt",
                              const std::string &folder = "log");
 DllExport spdlog::logger &Get();
 
-#define ul ulog::Get()
+#define ulg ulog::Get()
 } // namespace ulog
 
 #endif // ULOG_H

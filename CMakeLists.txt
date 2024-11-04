@@ -17,7 +17,7 @@ if(WIN32)
   endif(MSVC)
 endif(WIN32)
 
-set(ULOG_ENABLE_TESTER OFF)
+set(ULOG_ENABLE_TESTER ON)
 
 add_subdirectory(third-party)
 
@@ -40,7 +40,7 @@ install(TARGETS ulog)
 
 if (ULOG_ENABLE_TESTER)
   add_executable(tester lib/tester.cpp)
-  target_include_directories(tester PUBLIC ${CMAKE_SOURCE_DIR}/include)
+  target_include_directories(tester PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
   target_link_libraries(tester
     ulog
