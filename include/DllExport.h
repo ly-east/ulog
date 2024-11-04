@@ -6,7 +6,7 @@
 #define DllExport __declspec(dllexport)
 #else
 #define DllExport __declspec(dllimport)
-#endif // BBDOWN_EXECUTABLE
+#endif // ULOG_DLL
 #else
 #define DllExport
 #endif // _WIN32
