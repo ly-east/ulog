@@ -1,7 +1,7 @@
 #ifndef ULOG_H
 #define ULOG_H
 
-#include "DllExport.h"
+#include "DllExport/DllExport.h"
 #include "spdlog/spdlog.h"
 #include <memory>
 #include <string>

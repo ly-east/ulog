@@ -29,7 +29,7 @@ target_link_libraries(<YOUR-PROJECT-NAME> ulog)
 ...and include header file `ulog.h` where you should write log.
 
 ``` cpp
-#include "ulog.h"
+#include "ulog/ulog.h"
 
 ul::error("hello, {}", "there");  // "hello, there"
 ```
