@@ -17,7 +17,7 @@ if(WIN32)
   endif(MSVC)
 endif(WIN32)
 
-set(ULOG_ENABLE_TESTER ON)
+set(ULOG_ENABLE_TESTER OFF)
 
 add_subdirectory(third-party)
 
