@@ -4,12 +4,17 @@
 #include <string>
 
 namespace ulog {
-bool setFileLogger(const std::string &filename) {
+bool setFileLogger(const std::string &filename, const std::string &folder) {
   // save log to seperated folder
 
-  std::filesystem::path log_path{std::filesystem::current_path().append("log")};
-  if (!std::filesystem::exists(log_path))
-    std::filesystem::create_directories(log_path);
+  std::filesystem::path log_path{std::filesystem::current_path()};
+
+  if (!folder.empty()) {
+    log_path.append(folder);
+    if (!std::filesystem::exists(log_path))
+      std::filesystem::create_directories(log_path);
+  }
+
   log_path.append(filename);
 
   try {
