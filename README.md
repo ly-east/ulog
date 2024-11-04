@@ -30,7 +30,7 @@ target_link_libraries(<YOUR-PROJECT-NAME> ulog)
 ul::error("hello, {}", "there");  // "hello, there"
 ```
 
-Usage of log functions is just same to spdlog. Only thing you should notice is replace `spdlog` by `ul`.
+Usage of log functions is just same to spdlog. Only thing you should notice is to replace `spdlog` by `ul`.
 
 ## Demo Program
 
