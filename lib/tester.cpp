@@ -2,7 +2,7 @@
 #include <Windows.h>
 
 int main() {
-  ulog::setFileLogger("ulog");
+  ulog::setFileLogger(spdlog::level::info, "ulog");
 
   ulg.error("ul{}{}", 0, "g");
 

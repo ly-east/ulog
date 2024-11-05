@@ -4,7 +4,8 @@
 #include <string>
 
 namespace ulog {
-bool setFileLogger(const std::string &filename, const std::string &folder) {
+bool setFileLogger(spdlog::level::level_enum level, const std::string &filename,
+                   const std::string &folder) {
   // save log to seperated folder
 
   std::filesystem::path log_path{std::filesystem::current_path()};
@@ -24,7 +25,7 @@ bool setFileLogger(const std::string &filename, const std::string &folder) {
 
     // [Y-M-D H-M-S.e][thread ID][log level]content
     logger->set_pattern("[%Y-%m-%d %H:%M:%S.%e][%t][%l]%v");
-    logger->set_level(spdlog::level::debug);
+    logger->set_level(level);
     logger->flush_on(spdlog::level::err);
 
     spdlog::set_default_logger(logger);
