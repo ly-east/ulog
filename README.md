@@ -23,6 +23,7 @@ git submodule update --init --recursive
 ...then add to your project as a dependency in CMakeLists.txt:
 
 ``` cmake
+target_include_directories(<YOUR-PROJECT-NAME> ${CMAKE_SOURCE_DIR}/third-party/ulog/include)
 target_link_libraries(<YOUR-PROJECT-NAME> ulog)
 ```
 
