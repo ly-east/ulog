@@ -4,7 +4,7 @@
 #include <string>
 
 namespace ulog {
-bool setFileLogger(spdlog::level::level_enum level, const std::string &filename,
+bool setFileLogger(const std::string &filename, spdlog::level::level_enum level,
                    const std::string &folder) {
   // save log to seperated folder
 

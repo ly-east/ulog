@@ -1,7 +1,7 @@
 #include "ulog/ulog.h"
 
 int main() {
-  ulog::setFileLogger(spdlog::level::info, "ulog");
+  ulog::setFileLogger("ulog", spdlog::level::info);
 
   ulg.error("ul{}{}", 0, "g");
 

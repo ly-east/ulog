@@ -10,8 +10,8 @@ namespace ulog {
 // set log filename and optional log folder name
 // @return error if any error occurred
 DllExport bool
-setFileLogger(spdlog::level::level_enum level = spdlog::level::info,
-              const std::string &filename = "log.txt",
+setFileLogger(const std::string &filename = "log.txt",
+              spdlog::level::level_enum level = spdlog::level::info,
               const std::string &folder = "log");
 
 DllExport spdlog::logger &Get();
