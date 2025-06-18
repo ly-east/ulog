@@ -10,6 +10,14 @@ endif (POLICY CMP0091)
 
 project(ulog VERSION 0.5.0 LANGUAGES CXX)
 
+# Version
+
+configure_file(
+  ${CMAKE_SOURCE_DIR}/resource/version/Version.h.in
+  ${CMAKE_SOURCE_DIR}/resource/version/Version.h
+  @ONLY
+)
+
 # ===================================================================
 # compiler config
 
@@ -38,6 +46,8 @@ target_include_directories(ulog PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_link_libraries(ulog
   spdlog
 )
+
+target_sources(ulog PRIVATE ${CMAKE_SOURCE_DIR}/resource/ulog.rc)
 
 install(TARGETS ulog)
 

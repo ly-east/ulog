@@ -1,0 +1,46 @@
+#pragma code_page(65001) // UTF-8
+
+#include <windows.h>
+#include "version/Version.h"
+
+#define VER_FILEVERSION             ULOG_VERSION_MAJOR,ULOG_VERSION_MINOR,ULOG_VERSION_PATCH
+#define VER_FILEVERSION_STR         ULOG_VERSION
+
+#define VER_PRODUCTVERSION          ULOG_VERSION_MAJOR,ULOG_VERSION_MINOR,ULOG_VERSION_PATCH
+#define VER_PRODUCTVERSION_STR      ULOG_VERSION
+
+#ifndef DEBUG
+#define VER_DEBUG                   0
+#else
+#define VER_DEBUG                   VS_FF_DEBUG
+#endif
+
+1 VERSIONINFO
+FILEVERSION    	VER_FILEVERSION
+PRODUCTVERSION 	VER_PRODUCTVERSION
+FILEFLAGSMASK  	VER_DEBUG
+FILEFLAGS      	VER_DEBUG
+FILEOS         	VOS__WINDOWS32
+FILETYPE       	VFT_APP
+FILESUBTYPE    	VFT2_UNKNOWN
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "CompanyName",      "ly-east"
+            VALUE "FileDescription",  "ulog - Log wrapper around spdlog"
+            VALUE "FileVersion",      VER_FILEVERSION_STR
+            VALUE "InternalName",     "ulog"
+            VALUE "LegalCopyright",   "Copyright(c) 2019 spdlog authors; Copyright ©2024-2025 ly-east"
+            VALUE "OriginalFilename", "ulog.dll"
+            VALUE "ProductName",      "ulog"
+            VALUE "ProductVersion",   VER_PRODUCTVERSION_STR
+        END
+    END
+
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
