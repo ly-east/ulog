@@ -1,5 +1,8 @@
 # About ulog
-A wrapper of `spdlog` to address issue caused by static variable among DLLs/EXEs/SOs/DYLIBs...
+ulog is a wrapper library around [spdlog](https://github.com/gabime/spdlog).
+It extends spdlog with additional features while maintaining its original license:
+- Address issue caused by static variable among DLLs/EXEs/SOs/DYLIBs...
+- more...
 
 This project exports a dynamic link library that can be shared by different objects of your project.
 
