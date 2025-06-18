@@ -5,7 +5,13 @@ if (POLICY CMP0091)
   cmake_policy(SET CMP0091 NEW)
 endif (POLICY CMP0091)
 
+# ===================================================================
+# start ulog project
+
 project(ulog VERSION 0.5.0 LANGUAGES CXX)
+
+# ===================================================================
+# compiler config
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -15,9 +21,9 @@ if(WIN32)
     add_compile_options("$<$<C_COMPILER_ID:MSVC>:/utf-8>")
     add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
   endif(MSVC)
-endif(WIN32)
 
-set(ULOG_ENABLE_TESTER OFF)
+# ===================================================================
+# spdlog
 
 add_subdirectory(third-party)
 
@@ -37,6 +43,8 @@ install(TARGETS ulog)
 
 # ===================================================================
 # tester executable
+
+set(ULOG_ENABLE_TESTER OFF)
 
 if (ULOG_ENABLE_TESTER)
   add_executable(tester lib/tester.cpp)
