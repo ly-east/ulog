@@ -42,3 +42,8 @@ Usage of log functions is just same to spdlog. Only thing you should notice is t
 A simple program `tester` demostrating the basic usage of ulog is shipped with ulog, though it won't be built by default.
 
 You may flip the switch(set to `ON`) of cmake variable `ULOG_ENABLE_TESTER` in root CMake file to build it.
+
+# License
+
+- spdlog Copyright (c) 2015 Gabi Melman (MIT License)
+- ulog Copyright (c) 2024 ly-east (MIT License)
