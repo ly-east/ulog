@@ -47,7 +47,7 @@ target_link_libraries(ulog
   spdlog
 )
 
-target_sources(ulog PRIVATE ${CMAKE_SOURCE_DIR}/resource/ulog.rc)
+target_sources(ulog PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/resource/ulog.rc)
 
 install(TARGETS ulog)
 
