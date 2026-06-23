@@ -33,6 +33,13 @@ endif(MSVC)
 # ===================================================================
 # spdlog
 
+include(GNUInstallDirs)
+include(CMakePackageConfigHelpers)
+
+# Ensure spdlog creates its own export set so that
+# find_dependency(spdlog) works from ulogConfig.cmake
+set(SPDLOG_INSTALL ON CACHE BOOL "Generate the install target" FORCE)
+
 add_subdirectory(third-party)
 
 # ===================================================================
@@ -41,15 +48,55 @@ add_subdirectory(third-party)
 add_library(ulog SHARED lib/ulog.cpp)
 
 target_compile_definitions(ulog PUBLIC ULOG_DLL=1)
-target_include_directories(ulog PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_include_directories(ulog PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+)
 
-target_link_libraries(ulog
-  spdlog
+target_link_libraries(ulog PUBLIC
+  $<BUILD_INTERFACE:spdlog>
+  $<INSTALL_INTERFACE:spdlog::spdlog>
 )
 
 target_sources(ulog PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/resource/ulog.rc)
 
-install(TARGETS ulog)
+# Install public headers
+install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
+# Install ulog target with export
+install(TARGETS ulog EXPORT ulogTargets
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+
+# Install the export targets file
+install(EXPORT ulogTargets
+  FILE ulogTargets.cmake
+  NAMESPACE ulog::
+  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/ulog
+)
+
+# Generate package version file
+write_basic_package_version_file(
+  ${CMAKE_CURRENT_BINARY_DIR}/ulogConfigVersion.cmake
+  VERSION ${PROJECT_VERSION}
+  COMPATIBILITY SameMajorVersion
+)
+
+# Generate package config file from template
+configure_package_config_file(
+  ${CMAKE_CURRENT_SOURCE_DIR}/cmake/ulogConfig.cmake.in
+  ${CMAKE_CURRENT_BINARY_DIR}/ulogConfig.cmake
+  INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/ulog
+)
+
+# Install package config files
+install(FILES
+  ${CMAKE_CURRENT_BINARY_DIR}/ulogConfig.cmake
+  ${CMAKE_CURRENT_BINARY_DIR}/ulogConfigVersion.cmake
+  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/ulog
+)
 
 # ===================================================================
 # tester executable
