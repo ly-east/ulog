@@ -1,9 +1,9 @@
 #include "ulog/ulog.h"
 
 int main() {
-  ulog::setFileLogger("ulog", spdlog::level::info);
+	ulog::Logger::setFileLogger("ulog", ulog::Level::Info);
 
-  ulg.error("ul{}{}", 0, "g");
+	ulg.info("hello from ulog");
 
-  return 0;
+	return 0;
 }
