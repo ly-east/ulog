@@ -46,12 +46,24 @@ add_library(ulog SHARED lib/ulog.cpp)
 target_compile_definitions(ulog PRIVATE ULOG_DLL=1)
 target_include_directories(ulog PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/third-party/spdlog/include>
   $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
 
 target_link_libraries(ulog PRIVATE spdlog)
 
 target_sources(ulog PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/resource/ulog.rc)
+
+# Install public headers
+install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
+# Install bundled fmt headers (needed by ulog.h for inline template methods)
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/third-party/spdlog/include/spdlog/fmt/
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/spdlog/fmt)
+
+# spdlog/fmt/fmt.h includes <spdlog/tweakme.h> — install just that header
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/third-party/spdlog/include/spdlog/tweakme.h
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/spdlog)
 
 # Install ulog target with export
 install(TARGETS ulog EXPORT ulogTargets
