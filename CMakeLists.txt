@@ -13,8 +13,8 @@ project(ulog VERSION 0.5.0 LANGUAGES CXX)
 # Version
 
 configure_file(
-  ${CMAKE_SOURCE_DIR}/resource/version/Version.h.in
-  ${CMAKE_SOURCE_DIR}/resource/version/Version.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/resource/version/Version.h.in
+  ${CMAKE_CURRENT_SOURCE_DIR}/resource/version/Version.h
   @ONLY
 )
 
