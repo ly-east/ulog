@@ -52,7 +52,9 @@ target_include_directories(ulog PUBLIC
 
 target_link_libraries(ulog PRIVATE spdlog)
 
-target_sources(ulog PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/resource/ulog.rc)
+if(WIN32)
+  target_sources(ulog PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/resource/ulog.rc)
+endif()
 
 # Install public headers
 install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
