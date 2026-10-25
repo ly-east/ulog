@@ -56,16 +56,20 @@ if(WIN32)
   target_sources(ulog PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/resource/ulog.rc)
 endif()
 
-# Install public headers
-install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+# Development files (headers, CMake package config) are only installed for
+# standalone builds; as a subproject only the runtime library is installed.
+if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
+  # Install public headers
+  install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
-# Install bundled fmt headers (needed by ulog.h for inline template methods)
-install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/third-party/spdlog/include/spdlog/fmt/
-        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/spdlog/fmt)
+  # Install bundled fmt headers (needed by ulog.h for inline template methods)
+  install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/third-party/spdlog/include/spdlog/fmt/
+          DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/spdlog/fmt)
 
-# spdlog/fmt/fmt.h includes <spdlog/tweakme.h> — install just that header
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/third-party/spdlog/include/spdlog/tweakme.h
-        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/spdlog)
+  # spdlog/fmt/fmt.h includes <spdlog/tweakme.h> — install just that header
+  install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/third-party/spdlog/include/spdlog/tweakme.h
+          DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/spdlog)
+endif()
 
 # Install ulog target with export
 install(TARGETS ulog EXPORT ulogTargets
@@ -74,33 +78,35 @@ install(TARGETS ulog EXPORT ulogTargets
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
-# Install the export targets file
-install(EXPORT ulogTargets
-  FILE ulogTargets.cmake
-  NAMESPACE ulog::
-  DESTINATION cmake/ulog
-)
+if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
+  # Install the export targets file
+  install(EXPORT ulogTargets
+    FILE ulogTargets.cmake
+    NAMESPACE ulog::
+    DESTINATION cmake/ulog
+  )
 
-# Generate package version file
-write_basic_package_version_file(
-  ${CMAKE_CURRENT_BINARY_DIR}/ulogConfigVersion.cmake
-  VERSION ${PROJECT_VERSION}
-  COMPATIBILITY SameMajorVersion
-)
+  # Generate package version file
+  write_basic_package_version_file(
+    ${CMAKE_CURRENT_BINARY_DIR}/ulogConfigVersion.cmake
+    VERSION ${PROJECT_VERSION}
+    COMPATIBILITY SameMajorVersion
+  )
 
-# Generate package config file from template
-configure_package_config_file(
-  ${CMAKE_CURRENT_SOURCE_DIR}/cmake/ulogConfig.cmake.in
-  ${CMAKE_CURRENT_BINARY_DIR}/ulogConfig.cmake
-  INSTALL_DESTINATION cmake/ulog
-)
+  # Generate package config file from template
+  configure_package_config_file(
+    ${CMAKE_CURRENT_SOURCE_DIR}/cmake/ulogConfig.cmake.in
+    ${CMAKE_CURRENT_BINARY_DIR}/ulogConfig.cmake
+    INSTALL_DESTINATION cmake/ulog
+  )
 
-# Install package config files
-install(FILES
-  ${CMAKE_CURRENT_BINARY_DIR}/ulogConfig.cmake
-  ${CMAKE_CURRENT_BINARY_DIR}/ulogConfigVersion.cmake
-  DESTINATION cmake/ulog
-)
+  # Install package config files
+  install(FILES
+    ${CMAKE_CURRENT_BINARY_DIR}/ulogConfig.cmake
+    ${CMAKE_CURRENT_BINARY_DIR}/ulogConfigVersion.cmake
+    DESTINATION cmake/ulog
+  )
+endif()
 
 # ===================================================================
 # tester executable
